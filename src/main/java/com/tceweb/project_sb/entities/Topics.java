@@ -1,19 +1,30 @@
 package com.tceweb.project_sb.entities;
 
+import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Topics {
+@Entity
+@Table(name = "tb_topics")
+public class Topics implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String message;
     private LocalDateTime dateCreate;
+    @Enumerated(EnumType.STRING)
     private StatusTopics status = StatusTopics.NON_ANSWER;
+    @ManyToOne
     private User user;
+    @ManyToOne
     private Course course;
+    @OneToMany(mappedBy = "topics")
     private List<Answer> answers = new ArrayList<>();
 
     public Topics(){

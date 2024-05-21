@@ -1,9 +1,16 @@
 package com.tceweb.project_sb.entities;
 
+import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Course {
+@Entity
+@Table(name = "tb_course")
+public class Course implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String category;

@@ -1,29 +1,27 @@
 package com.tceweb.project_sb.entities;
 
+import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Answer {
+@Entity
+@Table(name = "tb_answer")
+public class Answer implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String message;
+
+    @ManyToOne
     private Topics topics;
     private LocalDateTime dateCreate;
+
+    @ManyToOne
     private User user;
     private Boolean solution = false;
-
-    public Answer(){
-
-    }
-
-    public Answer(Long id, String message, Topics topics, LocalDateTime dateCreate, User user, Boolean solution) {
-        this.id = id;
-        this.message = message;
-        this.topics = topics;
-        this.dateCreate = dateCreate;
-        this.user = user;
-        this.solution = solution;
-    }
 
     public Long getId() {
         return id;

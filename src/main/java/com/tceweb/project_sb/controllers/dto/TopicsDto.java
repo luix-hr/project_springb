@@ -1,4 +1,4 @@
-package com.tceweb.project_sb.controller.dto;
+package com.tceweb.project_sb.controllers.dto;
 
 import com.tceweb.project_sb.entities.Topics;
 
