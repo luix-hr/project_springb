@@ -1,5 +1,6 @@
 package com.tceweb.project_sb.entities;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,7 +10,7 @@ public class Topics {
     private Long id;
     private String title;
     private String message;
-    private String dateCreate;
+    private LocalDateTime dateCreate;
     private StatusTopics status = StatusTopics.NON_ANSWER;
     private User user;
     private Course course;
@@ -49,11 +50,11 @@ public class Topics {
         this.message = message;
     }
 
-    public String getDateCreate() {
+    public LocalDateTime getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(String dateCreate) {
+    public void setDateCreate(LocalDateTime dateCreate) {
         this.dateCreate = dateCreate;
     }
 
