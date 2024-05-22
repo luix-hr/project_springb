@@ -5,6 +5,7 @@ import com.tceweb.project_sb.controllers.form.TopicsForm;
 import com.tceweb.project_sb.entities.Topics;
 import com.tceweb.project_sb.repositories.CourseRepository;
 import com.tceweb.project_sb.repositories.TopicsRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,7 @@ public class TopicsController {
     }
 
     @PostMapping
-    public ResponseEntity<TopicsDto> cadastrar(@RequestBody TopicsForm topicsForm, UriComponentsBuilder uribuilder){
+    public ResponseEntity<TopicsDto> cadastrar(@RequestBody @Valid TopicsForm topicsForm, UriComponentsBuilder uribuilder){
         Topics topics = topicsForm.converter(courseRepository);
         topicsRepository.save(topics);
 

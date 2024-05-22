@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface TopicsRepository extends JpaRepository<Topics, Long> {
 
-    List<Topics> findByCourseName(String cursoName);
+    List<Topics> findByCourseName(String courseName);
 }

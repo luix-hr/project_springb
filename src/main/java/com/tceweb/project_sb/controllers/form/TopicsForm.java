@@ -3,17 +3,20 @@ package com.tceweb.project_sb.controllers.form;
 import com.tceweb.project_sb.entities.Course;
 import com.tceweb.project_sb.entities.Topics;
 import com.tceweb.project_sb.repositories.CourseRepository;
-import com.tceweb.project_sb.repositories.TopicsRepository;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
 
 public class TopicsForm {
 
+    @NotNull @NotEmpty @Length(min = 5)
     private String title;
+
+    @NotNull @NotEmpty @Length(min = 10)
     private String message;
+
+    @NotNull @NotEmpty
     private String nameCourse;
-
-    public TopicsForm(){
-
-    }
 
     public String getTitle() {
         return title;
