@@ -1,5 +1,6 @@
 package com.tceweb.project_sb.controllers;
 
+import com.tceweb.project_sb.controllers.dto.DetalhesTopicsDto;
 import com.tceweb.project_sb.controllers.dto.TopicsDto;
 import com.tceweb.project_sb.controllers.form.TopicsForm;
 import com.tceweb.project_sb.entities.Topics;
@@ -43,6 +44,12 @@ public class TopicsController {
         URI uri = uribuilder.path("/topics/{id}").buildAndExpand(topics.getId()).toUri();
         return ResponseEntity.created(uri).body(new TopicsDto(topics));
 
+    }
+
+    @GetMapping("/{id}")
+    public DetalhesTopicsDto detalhar(@PathVariable Long id){
+        Topics topics = topicsRepository.getReferenceById(id);
+        return new DetalhesTopicsDto(topics);
     }
 
 }
