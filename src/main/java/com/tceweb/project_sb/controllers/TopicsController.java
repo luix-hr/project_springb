@@ -2,10 +2,12 @@ package com.tceweb.project_sb.controllers;
 
 import com.tceweb.project_sb.controllers.dto.DetalhesTopicsDto;
 import com.tceweb.project_sb.controllers.dto.TopicsDto;
+import com.tceweb.project_sb.controllers.form.AtualizarTopicsForm;
 import com.tceweb.project_sb.controllers.form.TopicsForm;
 import com.tceweb.project_sb.entities.Topics;
 import com.tceweb.project_sb.repositories.CourseRepository;
 import com.tceweb.project_sb.repositories.TopicsRepository;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +52,14 @@ public class TopicsController {
     public DetalhesTopicsDto detalhar(@PathVariable Long id){
         Topics topics = topicsRepository.getReferenceById(id);
         return new DetalhesTopicsDto(topics);
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<TopicsDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizarTopicsForm atualizarTopicsForm){
+       Topics topics = atualizarTopicsForm.atualizar(id, topicsRepository);
+
+       return ResponseEntity.ok(new TopicsDto(topics));
     }
 
 }
