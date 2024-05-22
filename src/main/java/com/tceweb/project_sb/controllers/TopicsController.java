@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/topics")
@@ -50,24 +51,36 @@ public class TopicsController {
     }
 
     @GetMapping("/{id}")
-    public DetalhesTopicsDto detalhar(@PathVariable Long id){
-        Topics topics = topicsRepository.getReferenceById(id);
-        return new DetalhesTopicsDto(topics);
+    public ResponseEntity<DetalhesTopicsDto> detalhar(@PathVariable Long id){
+        Optional<Topics> topics = topicsRepository.findById(id);
+        if (topics.isPresent()){
+        return ResponseEntity.ok(new DetalhesTopicsDto(topics.get()));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<TopicsDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizarTopicsForm atualizarTopicsForm){
-       Topics topics = atualizarTopicsForm.atualizar(id, topicsRepository);
-
-       return ResponseEntity.ok(new TopicsDto(topics));
+        Optional<Topics> optional = topicsRepository.findById(id);
+        if (optional.isPresent()){
+            Topics topics = atualizarTopicsForm.atualizar(id, topicsRepository);
+            return ResponseEntity.ok(new TopicsDto(topics));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public  ResponseEntity<?> remover(@PathVariable Long id){
-        topicsRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+        Optional<Topics> optional = topicsRepository.findById(id);
+        if (optional.isPresent()){
+            topicsRepository.deleteById(id);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
-
 }
