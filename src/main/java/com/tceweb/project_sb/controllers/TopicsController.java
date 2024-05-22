@@ -6,8 +6,11 @@ import com.tceweb.project_sb.entities.Topics;
 import com.tceweb.project_sb.repositories.CourseRepository;
 import com.tceweb.project_sb.repositories.TopicsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -32,9 +35,12 @@ public class TopicsController {
     }
 
     @PostMapping
-    public void cadastrar(@RequestBody TopicsForm topicsForm){
+    public ResponseEntity<TopicsDto> cadastrar(@RequestBody TopicsForm topicsForm, UriComponentsBuilder uribuilder){
         Topics topics = topicsForm.converter(courseRepository);
         topicsRepository.save(topics);
+
+        URI uri = uribuilder.path("/topics/{id}").buildAndExpand(topics.getId()).toUri();
+        return ResponseEntity.created(uri).body(new TopicsDto(topics));
 
     }
 
